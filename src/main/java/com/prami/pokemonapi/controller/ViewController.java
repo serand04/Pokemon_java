@@ -21,7 +21,7 @@ public class ViewController {
     @GetMapping
     public String home(Model model) {
         model.addAttribute("pokemons", pokemonService.getFirst50Abilities());
-        //model.addAttribute("trainers", trainerService.getAllTrainers());
+        model.addAttribute("trainers", trainerService.getAllTrainers());
         return "home";
     }
 }
