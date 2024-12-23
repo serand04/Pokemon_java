@@ -35,6 +35,10 @@ public class TrainerService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Entrenador no encontrado"));
     }
 
+    public List<Trainer> getAllTrainers() {
+        return trainerRepository.findAll();
+    }
+
     public void deleteTrainer(Long id) {
         trainerRepository.deleteById(id);
     }

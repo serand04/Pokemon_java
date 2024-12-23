@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/api/trainers")
 public class TrainerController {
@@ -17,9 +19,21 @@ public class TrainerController {
         this.trainerService = trainerService;
     }
 
+    @GetMapping
+    public List<Trainer> getAllTrainers() {
+        return trainerService.getAllTrainers();
+    }
+
     @GetMapping("/new")
     public String showTrainerForm(Model model) {
         model.addAttribute("trainer", new Trainer());
+        return "trainer_form";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showTrainerEditForm(@PathVariable Long id, Model model) {
+        Trainer trainer = trainerService.getTrainer(id);
+        model.addAttribute("trainer", trainer);
         return "trainer_form";
     }
 
