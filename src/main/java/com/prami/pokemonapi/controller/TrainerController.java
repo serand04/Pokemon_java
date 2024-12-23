@@ -4,15 +4,29 @@ import com.prami.pokemonapi.model.Trainer;
 import com.prami.pokemonapi.service.TrainerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/api/trainers")
 public class TrainerController {
     private final TrainerService trainerService;
 
     public TrainerController(TrainerService trainerService) {
         this.trainerService = trainerService;
+    }
+
+    @GetMapping("/new")
+    public String showTrainerForm(Model model) {
+        model.addAttribute("trainer", new Trainer());
+        return "trainer_form";
+    }
+
+    @PostMapping("/saveTrainer")
+    public String saveTrainer(@ModelAttribute Trainer trainer) {
+        trainerService.createTrainer(trainer);
+        return "redirect:/";
     }
 
     @PostMapping
